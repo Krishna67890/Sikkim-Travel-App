@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [activeLink, setActiveLink] = useState('');
+  const location = useLocation();
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -27,6 +29,23 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Navigation data
+  const quickLinks = [
+    { path: '/', label: 'Home', icon: 'home' },
+    { path: '/destinations', label: 'Destinations', icon: 'destinations' },
+    { path: '/itineraries', label: 'Tours', icon: 'tours' },
+    { path: '/accommodations', label: 'Accommodations', icon: 'accommodations' },
+    { path: '/travel-guides', label: 'Travel Guides', icon: 'travel-guides' }
+  ];
+
+  const destinationLinks = [
+    { path: '/destinations/gangtok', label: 'Gangtok', icon: 'gangtok' },
+    { path: '/destinations/pelling', label: 'Pelling', icon: 'pelling' },
+    { path: '/destinations/lachung', label: 'Lachung', icon: 'lachung' },
+    { path: '/destinations/yumthang-valley', label: 'Yumthang Valley', icon: 'yumthang' },
+    { path: '/destinations/tsomgo-lake', label: 'Tsomgo Lake', icon: 'tsomgo' }
+  ];
+
   return (
     <footer className="footer">
       <div className="footer-background">
@@ -48,16 +67,16 @@ const Footer = () => {
               serene monasteries, and vibrant culture. Your journey to paradise begins here.
             </p>
             <div className="social-links">
-              <a href="#" className="social-link" onMouseEnter={() => handleLinkHover('facebook')} onMouseLeave={handleLinkLeave}>
+              <a href="https://facebook.com" className="social-link" onMouseEnter={() => handleLinkHover('facebook')} onMouseLeave={handleLinkLeave}>
                 <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="#" className="social-link" onMouseEnter={() => handleLinkHover('instagram')} onMouseLeave={handleLinkLeave}>
+              <a href="https://instagram.com" className="social-link" onMouseEnter={() => handleLinkHover('instagram')} onMouseLeave={handleLinkLeave}>
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="#" className="social-link" onMouseEnter={() => handleLinkHover('twitter')} onMouseLeave={handleLinkLeave}>
+              <a href="https://twitter.com" className="social-link" onMouseEnter={() => handleLinkHover('twitter')} onMouseLeave={handleLinkLeave}>
                 <i className="fab fa-twitter"></i>
               </a>
-              <a href="#" className="social-link" onMouseEnter={() => handleLinkHover('youtube')} onMouseLeave={handleLinkLeave}>
+              <a href="https://youtube.com" className="social-link" onMouseEnter={() => handleLinkHover('youtube')} onMouseLeave={handleLinkLeave}>
                 <i className="fab fa-youtube"></i>
               </a>
             </div>
@@ -66,22 +85,38 @@ const Footer = () => {
           <div className="footer-section footer-links">
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="#" onMouseEnter={() => handleLinkHover('home')} onMouseLeave={handleLinkLeave}>Home</a></li>
-              <li><a href="#" onMouseEnter={() => handleLinkHover('destinations')} onMouseLeave={handleLinkLeave}>Destinations</a></li>
-              <li><a href="#" onMouseEnter={() => handleLinkHover('tours')} onMouseLeave={handleLinkLeave}>Tours</a></li>
-              <li><a href="#" onMouseEnter={() => handleLinkHover('accommodations')} onMouseLeave={handleLinkLeave}>Accommodations</a></li>
-              <li><a href="#" onMouseEnter={() => handleLinkHover('travel-guides')} onMouseLeave={handleLinkLeave}>Travel Guides</a></li>
+              {quickLinks.map((link) => (
+                <li key={link.path}>
+                  <Link 
+                    to={link.path} 
+                    className={location.pathname === link.path ? 'active' : ''}
+                    onMouseEnter={() => handleLinkHover(link.icon)} 
+                    onMouseLeave={handleLinkLeave}
+                    onClick={scrollToTop}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div className="footer-section footer-links">
             <h4>Destinations</h4>
             <ul>
-              <li><a href="#" onMouseEnter={() => handleLinkHover('gangtok')} onMouseLeave={handleLinkLeave}>Gangtok</a></li>
-              <li><a href="#" onMouseEnter={() => handleLinkHover('pelling')} onMouseLeave={handleLinkLeave}>Pelling</a></li>
-              <li><a href="#" onMouseEnter={() => handleLinkHover('lachung')} onMouseLeave={handleLinkLeave}>Lachung</a></li>
-              <li><a href="#" onMouseEnter={() => handleLinkHover('yumthang')} onMouseLeave={handleLinkLeave}>Yumthang Valley</a></li>
-              <li><a href="#" onMouseEnter={() => handleLinkHover('tsomgo')} onMouseLeave={handleLinkLeave}>Tsomgo Lake</a></li>
+              {destinationLinks.map((link) => (
+                <li key={link.path}>
+                  <Link 
+                    to={link.path} 
+                    className={location.pathname === link.path ? 'active' : ''}
+                    onMouseEnter={() => handleLinkHover(link.icon)} 
+                    onMouseLeave={handleLinkLeave}
+                    onClick={scrollToTop}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -116,9 +151,9 @@ const Footer = () => {
           <div className="footer-bottom-content">
             <p>&copy; 2025 Sikkim Explorer. All rights reserved.</p>
             <div className="legal-links">
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Service</a>
-              <a href="#">Cookie Policy</a>
+              <Link to="/privacy-policy">Privacy Policy</Link>
+              <Link to="/terms-of-service">Terms of Service</Link>
+              <Link to="/cookie-policy">Cookie Policy</Link>
             </div>
           </div>
         </div>
