@@ -1,0 +1,253 @@
+/* MonasteriesList.css */
+.monasteries-list-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.monasteries-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+              url('https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=1200') center/cover;
+  color: white;
+  padding: 6rem 0 4rem;
+  text-align: center;
+}
+
+.monasteries-hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.monasteries-hero-content p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+.monasteries-content {
+  padding: 3rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.monasteries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+
+.monasteries-intro {
+  flex: 1;
+}
+
+.monasteries-intro h2 {
+  font-size: 2.2rem;
+  color: #2c5530;
+  margin-bottom: 1rem;
+}
+
+.monasteries-intro p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #495057;
+  max-width: 600px;
+}
+
+.search-container {
+  flex: 0 0 350px;
+}
+
+.monasteries-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+}
+
+.filters-sidebar {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  align-self: start;
+  position: sticky;
+  top: 2rem;
+}
+
+.monasteries-main {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.results-header h3 {
+  font-size: 1.4rem;
+  color: #2c5530;
+  margin: 0;
+}
+
+.sort-options {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sort-options label {
+  font-weight: 600;
+  color: #495057;
+}
+
+.sort-options select {
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  background-color: white;
+}
+
+.monasteries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.no-results-content h3 {
+  font-size: 1.5rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.no-results-content p {
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+}
+
+.clear-filters-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(45deg, #2c5530, #5b8c5a);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-filters-btn:hover {
+  background: linear-gradient(45deg, #5b8c5a, #2c5530);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(44, 85, 48, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .monasteries-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .filters-sidebar {
+    position: static;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .monasteries-hero-content h1 {
+    font-size: 2.2rem;
+  }
+  
+  .monasteries-hero-content p {
+    font-size: 1.1rem;
+  }
+  
+  .monasteries-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  
+  .search-container {
+    flex: 1;
+    width: 100%;
+  }
+  
+  .results-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .monasteries-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .monasteries-hero {
+    padding: 4rem 0 3rem;
+  }
+  
+  .monasteries-hero-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .monasteries-content {
+    padding: 2rem 0;
+  }
+  
+  .monasteries-intro h2 {
+    font-size: 1.8rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .monasteries-main {
+    padding: 1.5rem;
+  }
+}
+
+/* Animation for cards */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.monasteries-grid > * {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.monasteries-grid > *:nth-child(1) { animation-delay: 0.1s; }
+.monasteries-grid > *:nth-child(2) { animation-delay: 0.2s; }
+.monasteries-grid > *:nth-child(3) { animation-delay: 0.3s; }
+.monasteries-grid > *:nth-child(4) { animation-delay: 0.4s; }
+.monasteries-grid > *:nth-child(5) { animation-delay: 0.5s; }
+.monasteries-grid > *:nth-child(6) { animation-delay: 0.6s; }

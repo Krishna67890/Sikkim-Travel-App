@@ -1,0 +1,281 @@
+/* RouteCard.css */
+.route-card {
+  position: relative;
+  border-radius: 12px;
+  background: var(--card-bg, #fff);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color, #eaeaea);
+}
+
+.route-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.route-card:hover .route-card__hover-layer {
+  opacity: 1;
+}
+
+.route-card.selected {
+  border-color: var(--primary-color, #3b82f6);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.route-card__hover-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.route-card__header {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color, #eaeaea);
+  gap: 12px;
+}
+
+.route-card__transport {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
+}
+
+.route-card__transport-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.route-card__transport-type {
+  font-size: 12px;
+  text-transform: capitalize;
+  color: var(--text-secondary, #64748b);
+  margin-top: 4px;
+}
+
+.route-card__route-info {
+  flex: 1;
+}
+
+.route-card__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: var(--text-primary, #1e293b);
+}
+
+.route-card__meta {
+  display: flex;
+  gap: 16px;
+}
+
+.route-card__distance,
+.route-card__duration {
+  font-size: 14px;
+  color: var(--text-secondary, #64748b);
+  display: flex;
+  align-items: center;
+}
+
+.route-card__distance::before {
+  content: '📏 ';
+  margin-right: 4px;
+}
+
+.route-card__duration::before {
+  content: '⏱ ';
+  margin-right: 4px;
+}
+
+.route-card__expand-btn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--text-secondary, #64748b);
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.route-card__expand-btn:hover {
+  background: var(--bg-secondary, #f8fafc);
+  color: var(--text-primary, #1e293b);
+}
+
+.route-card__content {
+  padding: 16px;
+}
+
+.route-card__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.route-card__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  background: var(--bg-secondary, #f8fafc);
+  border-radius: 8px;
+}
+
+.route-card__stat-label {
+  font-size: 12px;
+  color: var(--text-secondary, #64748b);
+  margin-bottom: 4px;
+}
+
+.route-card__stat-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #1e293b);
+}
+
+.route-card__details {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color, #eaeaea);
+}
+
+.route-card__description {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary, #1e293b);
+  margin: 0 0 16px 0;
+}
+
+.route-card__highlights,
+.route-card__tips {
+  margin-bottom: 16px;
+}
+
+.route-card__highlights h4,
+.route-card__tips h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: var(--text-primary, #1e293b);
+}
+
+.route-card__highlights ul,
+.route-card__tips ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.route-card__highlights li,
+.route-card__tips li {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary, #64748b);
+  margin-bottom: 4px;
+}
+
+.route-card__actions {
+  display: flex;
+  padding: 0 16px 16px;
+  gap: 12px;
+}
+
+.route-card__select-btn,
+.route-card__navigate-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-color, #eaeaea);
+  background: var(--bg-primary, #fff);
+  color: var(--text-primary, #1e293b);
+}
+
+.route-card__select-btn:hover,
+.route-card__navigate-btn:hover {
+  background: var(--bg-secondary, #f8fafc);
+}
+
+.route-card__select-btn.selected {
+  background: var(--primary-color, #3b82f6);
+  color: white;
+  border-color: var(--primary-color, #3b82f6);
+}
+
+.route-card__navigate-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Compact variant */
+.route-card.compact .route-card__header {
+  padding: 12px;
+}
+
+.route-card.compact .route-card__title {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.route-card.compact .route-card__content {
+  padding: 12px;
+}
+
+.route-card.compact .route-card__stats {
+  margin-bottom: 12px;
+}
+
+.route-card.compact .route-card__stat {
+  padding: 6px;
+}
+
+.route-card.compact .route-card__stat-label {
+  font-size: 11px;
+}
+
+.route-card.compact .route-card__stat-value {
+  font-size: 13px;
+}
+
+.route-card.compact .route-card__actions {
+  padding: 0 12px 12px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .route-card {
+    --card-bg: #1e293b;
+    --border-color: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --bg-primary: #1e293b;
+    --bg-secondary: #334155;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .route-card__stats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .route-card__actions {
+    flex-direction: column;
+  }
+}

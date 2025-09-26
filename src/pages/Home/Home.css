@@ -1,0 +1,288 @@
+/* Home.css */
+.home-container {
+  overflow-x: hidden;
+}
+
+.search-section {
+  padding: 3rem 0;
+  text-align: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.search-section h2 {
+  font-size: 2.2rem;
+  color: #2c5530;
+  margin-bottom: 0.5rem;
+}
+
+.search-section p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  color: #2c5530;
+  position: relative;
+}
+
+.section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(45deg, #2c5530, #5b8c5a);
+  border-radius: 3px;
+}
+
+.view-all {
+  color: #5b8c5a;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.view-all:hover {
+  color: #2c5530;
+  transform: translateX(5px);
+}
+
+.view-all::after {
+  content: '→';
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.view-all:hover::after {
+  transform: translateX(3px);
+}
+
+.featured-routes,
+.featured-stays,
+.featured-monasteries,
+.video-highlights,
+.planning-tools {
+  padding: 4rem 0;
+}
+
+.featured-routes {
+  background-color: #fff;
+}
+
+.featured-stays {
+  background-color: #f8f9fa;
+}
+
+.featured-monasteries {
+  background-color: #fff;
+}
+
+.video-highlights {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=1000') center/cover;
+  color: white;
+  text-align: center;
+}
+
+.video-highlights h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.videos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.planning-tools {
+  background-color: #f8f9fa;
+}
+
+.planning-tools h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2c5530;
+  margin-bottom: 3rem;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.tool-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tool-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.tool-card h3 {
+  font-size: 1.4rem;
+  color: #2c5530;
+  margin-bottom: 1rem;
+}
+
+.tool-card p {
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(45deg, #2c5530, #5b8c5a);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background: linear-gradient(45deg, #5b8c5a, #2c5530);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(44, 85, 48, 0.3);
+}
+
+/* Grid layouts for different sections */
+.routes-grid,
+.stays-grid,
+.monasteries-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.routes-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.stays-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.monasteries-grid {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .search-section h2 {
+    font-size: 1.8rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .featured-routes,
+  .featured-stays,
+  .featured-monasteries,
+  .video-highlights,
+  .planning-tools {
+    padding: 2.5rem 0;
+  }
+  
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .videos-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .search-section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.4rem;
+  }
+  
+  .tool-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Animation for section entrance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.featured-routes,
+.featured-stays,
+.featured-monasteries,
+.video-highlights,
+.planning-tools {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.featured-stays {
+  animation-delay: 0.1s;
+}
+
+.featured-monasteries {
+  animation-delay: 0.2s;
+}
+
+.video-highlights {
+  animation-delay: 0.3s;
+}
+
+.planning-tools {
+  animation-delay: 0.4s;
+}

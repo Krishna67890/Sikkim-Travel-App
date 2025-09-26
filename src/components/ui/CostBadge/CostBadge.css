@@ -1,0 +1,256 @@
+/* CostBadge.css */
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary: #ec4899;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --dark: #1f2937;
+  --light: #f9fafb;
+  --gray: #6b7280;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cost-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: white;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: default;
+  user-select: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.cost-badge--visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.cost-badge--animated {
+  animation: float 3s ease-in-out infinite;
+}
+
+.cost-badge--pulse {
+  animation: pulse 2s infinite;
+}
+
+.cost-badge--small {
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+}
+
+.cost-badge--medium {
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+.cost-badge--large {
+  padding: 0.75rem 1.5rem;
+  border-radius: 16px;
+  font-size: 1.25rem;
+}
+
+/* Variants */
+.cost-badge--primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.cost-badge--secondary {
+  background: linear-gradient(135deg, var(--secondary) 0%, #db2777 100%);
+}
+
+.cost-badge--success {
+  background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+}
+
+.cost-badge--warning {
+  background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+}
+
+.cost-badge--danger {
+  background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+}
+
+.cost-badge--dark {
+  background: linear-gradient(135deg, var(--dark) 0%, #111827 100%);
+}
+
+/* Discount style */
+.cost-badge--discount {
+  flex-direction: column;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+}
+
+.cost-badge__current {
+  display: flex;
+  align-items: baseline;
+  line-height: 1;
+}
+
+.cost-badge__original {
+  display: flex;
+  align-items: baseline;
+  position: relative;
+  margin-bottom: 0.25rem;
+  opacity: 0.8;
+}
+
+.cost-badge__original::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -0.25rem;
+  right: -0.25rem;
+  height: 2px;
+  background: currentColor;
+  transform: rotate(-5deg);
+}
+
+.cost-badge__currency {
+  font-size: 0.75em;
+  margin-right: 0.125rem;
+  align-self: flex-start;
+}
+
+.cost-badge__original-currency {
+  font-size: 0.6em;
+  margin-right: 0.125rem;
+}
+
+.cost-badge__value {
+  font-size: 1.25em;
+  line-height: 1;
+}
+
+.cost-badge__original-value {
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+.cost-badge__savings {
+  font-size: 0.65em;
+  margin-top: 0.25rem;
+  opacity: 0.9;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Shine effect */
+.cost-badge__shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg) translateY(-100%);
+  transition: transform 0.6s ease;
+}
+
+.cost-badge:hover .cost-badge__shine {
+  transform: rotate(45deg) translateY(100%);
+}
+
+.cost-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.cost-badge--visible:hover {
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
+}
+
+.cost-badge--secondary.cost-badge--pulse {
+  animation-name: pulse-secondary;
+}
+
+@keyframes pulse-secondary {
+  0% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(236, 72, 153, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+  }
+}
+
+.cost-badge--success.cost-badge--pulse {
+  animation-name: pulse-success;
+}
+
+@keyframes pulse-success {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Clickable style */
+.cost-badge[onclick] {
+  cursor: pointer;
+}
+
+.cost-badge[onclick]:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cost-badge--large {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.1rem;
+  }
+  
+  .cost-badge--discount {
+    padding: 0.6rem 0.9rem;
+  }
+}

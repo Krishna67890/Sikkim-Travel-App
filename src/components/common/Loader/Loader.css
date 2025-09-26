@@ -1,0 +1,158 @@
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.loader-content {
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.loader-animation {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin: 0 auto 30px;
+}
+
+.mountain-range {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.mountain {
+  background: linear-gradient(45deg, #2c3e50, #34495e);
+  border-radius: 10px 10px 0 0;
+  position: relative;
+}
+
+.mountain-1 {
+  width: 60px;
+  height: 80px;
+  animation: mountainGlow 3s ease-in-out infinite;
+}
+
+.mountain-2 {
+  width: 80px;
+  height: 100px;
+  animation: mountainGlow 3s ease-in-out infinite 0.5s;
+}
+
+.mountain-3 {
+  width: 70px;
+  height: 90px;
+  animation: mountainGlow 3s ease-in-out infinite 1s;
+}
+
+.mountain-4 {
+  width: 50px;
+  height: 70px;
+  animation: mountainGlow 3s ease-in-out infinite 1.5s;
+}
+
+.sun {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: #f39c12;
+  border-radius: 50%;
+  box-shadow: 0 0 50px #f39c12;
+  animation: sunPulse 2s ease-in-out infinite;
+}
+
+.cloud {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.cloud-1 {
+  width: 40px;
+  height: 20px;
+  top: 50px;
+  left: 30px;
+  animation: cloudFloat 4s ease-in-out infinite;
+}
+
+.cloud-2 {
+  width: 30px;
+  height: 15px;
+  top: 70px;
+  right: 40px;
+  animation: cloudFloat 4s ease-in-out infinite 1s;
+}
+
+.loader-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+.loader-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 4px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b6b, #feca57);
+  border-radius: 10px;
+  animation: loadingProgress 2.5s ease-in-out forwards;
+}
+
+@keyframes loadingProgress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes sunPulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.1); }
+}
+
+@keyframes cloudFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes mountainGlow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes textGlow {
+  0%, 100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+  50% { text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
+}

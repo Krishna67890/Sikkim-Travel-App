@@ -1,0 +1,295 @@
+/* src/pages/Vlogs/Vlogs.css */
+.vlogs-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.vlogs-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), 
+              url('/images/vlogs/hero-bg.jpg') center/cover no-repeat;
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.vlogs-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to bottom, transparent, #f8f9fa);
+}
+
+.vlogs-hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.vlogs-hero-content p {
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.vlogs-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.vlogs-intro {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.vlogs-intro h2 {
+  font-size: 2.2rem;
+  color: #2d3748;
+  margin-bottom: 16px;
+}
+
+.vlogs-intro p {
+  font-size: 1.1rem;
+  color: #718096;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.vlogs-filters {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+  margin-bottom: 40px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.vlogs-grid-section {
+  margin: 50px 0;
+}
+
+.vlogs-grid-section h3 {
+  font-size: 1.8rem;
+  color: #2d3748;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vlogs-grid-section h3 span {
+  font-size: 1rem;
+  background: #4299e1;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.vlogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+}
+
+.no-results-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.no-results p {
+  font-size: 1.1rem;
+  color: #718096;
+}
+
+.featured-creators {
+  margin: 60px 0;
+}
+
+.featured-creators h3 {
+  font-size: 1.8rem;
+  color: #2d3748;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.creators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.creator-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.creator-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.creator-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 15px;
+  border: 3px solid #e9ecef;
+}
+
+.creator-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.creator-card h4 {
+  font-size: 1.2rem;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.creator-card p {
+  color: #718096;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.vlogs-count {
+  background: #ebf8ff;
+  color: #3182ce;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.vlogs-cta {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 50px;
+  text-align: center;
+  color: white;
+  margin-top: 60px;
+}
+
+.cta-content h3 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.cta-content p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 25px;
+  opacity: 0.9;
+}
+
+.cta-button {
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .vlogs-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .vlogs-hero {
+    padding: 80px 20px;
+  }
+  
+  .vlogs-hero-content h1 {
+    font-size: 2.2rem;
+  }
+  
+  .vlogs-hero-content p {
+    font-size: 1.1rem;
+  }
+  
+  .filter-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .vlogs-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .creators-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .vlogs-cta {
+    padding: 40px 20px;
+  }
+  
+  .cta-content h3 {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .vlogs-hero-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .vlogs-intro h2 {
+    font-size: 1.7rem;
+  }
+  
+  .vlogs-filters {
+    padding: 20px 16px;
+  }
+  
+  .creators-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-button {
+    width: 100%;
+  }
+}
