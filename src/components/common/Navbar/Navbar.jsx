@@ -40,7 +40,7 @@ const Navbar = () => {
           className={`navbar-toggle ${isMenuOpen ? 'active' : ''}`}
           onClick={toggleMenu}
           aria-label="Toggle menu"
-        >
+        > 
           <span className="navbar-toggle-icon"></span>
           <span className="navbar-toggle-icon"></span>
           <span className="navbar-toggle-icon"></span>
