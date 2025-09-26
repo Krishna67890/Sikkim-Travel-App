@@ -1,10 +1,15 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import './Gallery.css';
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [uploadedMedia, setUploadedMedia] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef(null);
 
   const categories = [
     { id: 'all', name: 'All Sikkim' },
@@ -12,17 +17,19 @@ const Gallery = () => {
     { id: 'monasteries', name: 'Monasteries' },
     { id: 'lakes', name: 'Lakes' },
     { id: 'culture', name: 'Culture' },
-    { id: 'wildlife', name: 'Wildlife' }
+    { id: 'wildlife', name: 'Wildlife' },
+    { id: 'user-uploads', name: 'Your Uploads' }
   ];
 
-  const images = [
+  const initialImages = [
     {
       id: 1,
       src: 'https://images.unsplash.com/photo-1580502304784-8985b7eb7260?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
       category: 'lakes',
       title: 'Tsomgo Lake',
       description: 'Sacred glacial lake at 12,400 ft surrounded by steep mountains',
-      location: 'East Sikkim'
+      location: 'East Sikkim',
+      type: 'image'
     },
     {
       id: 2,
@@ -30,7 +37,8 @@ const Gallery = () => {
       category: 'landscapes',
       title: 'Himalayan Range',
       description: 'Majestic views of the Eastern Himalayas from Sikkim',
-      location: 'North Sikkim'
+      location: 'North Sikkim',
+      type: 'image'
     },
     {
       id: 3,
@@ -38,7 +46,8 @@ const Gallery = () => {
       category: 'lakes',
       title: 'Gurudongmar Lake',
       description: 'One of the highest lakes in the world at 17,800 ft',
-      location: 'North Sikkim'
+      location: 'North Sikkim',
+      type: 'image'
     },
     {
       id: 4,
@@ -46,7 +55,8 @@ const Gallery = () => {
       category: 'landscapes',
       title: 'Yumthang Valley',
       description: 'Valley of Flowers with stunning rhododendron blooms',
-      location: 'North Sikkim'
+      location: 'North Sikkim',
+      type: 'image'
     },
     {
       id: 5,
@@ -54,7 +64,8 @@ const Gallery = () => {
       category: 'monasteries',
       title: 'Rumtek Monastery',
       description: 'One of the largest and most significant monasteries in Sikkim',
-      location: 'East Sikkim'
+      location: 'East Sikkim',
+      type: 'image'
     },
     {
       id: 6,
@@ -62,7 +73,8 @@ const Gallery = () => {
       category: 'monasteries',
       title: 'Pemayangtse Monastery',
       description: 'One of the oldest monasteries dating back to 1705',
-      location: 'West Sikkim'
+      location: 'West Sikkim',
+      type: 'image'
     },
     {
       id: 7,
@@ -70,7 +82,8 @@ const Gallery = () => {
       category: 'culture',
       title: 'Traditional Dance',
       description: 'Mask dance performed during religious festivals',
-      location: 'Gangtok'
+      location: 'Gangtok',
+      type: 'image'
     },
     {
       id: 8,
@@ -78,7 +91,8 @@ const Gallery = () => {
       category: 'culture',
       title: 'Local Market',
       description: 'Vibrant market showcasing Sikkimese handicrafts',
-      location: 'Gangtok'
+      location: 'Gangtok',
+      type: 'image'
     },
     {
       id: 9,
@@ -86,7 +100,8 @@ const Gallery = () => {
       category: 'wildlife',
       title: 'Red Panda',
       description: 'Sikkims state animal found in Himalayan forests',
-      location: 'Khangchendzonga National Park'
+      location: 'Khangchendzonga National Park',
+      type: 'image'
     },
     {
       id: 10,
@@ -94,7 +109,8 @@ const Gallery = () => {
       category: 'wildlife',
       title: 'Himalayan Monal',
       description: 'Colorful pheasant found in the high altitudes',
-      location: 'Khangchendzonga Biosphere'
+      location: 'Khangchendzonga Biosphere',
+      type: 'image'
     },
     {
       id: 11,
@@ -102,7 +118,8 @@ const Gallery = () => {
       category: 'landscapes',
       title: 'Kanchenjunga Peak',
       description: 'Third highest mountain in the world as seen from Sikkim',
-      location: 'West Sikkim'
+      location: 'West Sikkim',
+      type: 'image'
     },
     {
       id: 12,
@@ -110,12 +127,153 @@ const Gallery = () => {
       category: 'landscapes',
       title: 'Tea Gardens',
       description: 'Lush green tea estates of Temi Tea Garden',
-      location: 'South Sikkim'
+      location: 'South Sikkim',
+      type: 'image'
+    },
+    // Additional 15 photos of Sikkim
+    {
+      id: 13,
+      src: 'https://images.unsplash.com/photo-1559666126-84f389727b9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'landscapes',
+      title: 'Nathula Pass',
+      description: 'Historic mountain pass on the Indo-China border',
+      location: 'East Sikkim',
+      type: 'image'
+    },
+    {
+      id: 14,
+      src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'monasteries',
+      title: 'Enchey Monastery',
+      description: '200-year-old monastery overlooking Gangtok city',
+      location: 'Gangtok',
+      type: 'image'
+    },
+    {
+      id: 15,
+      src: 'https://images.unsplash.com/photo-1580133318324-f2f76d987dd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'lakes',
+      title: 'Khecheopalri Lake',
+      description: 'Sacred lake believed to fulfill wishes of devotees',
+      location: 'West Sikkim',
+      type: 'image'
+    },
+    {
+      id: 16,
+      src: 'https://images.unsplash.com/photo-1566505670282-0d18df1e1f0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'culture',
+      title: 'Prayer Flags',
+      description: 'Colorful prayer flags fluttering in Himalayan breeze',
+      location: 'Throughout Sikkim',
+      type: 'image'
+    },
+    {
+      id: 17,
+      src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'landscapes',
+      title: 'Seven Sisters Waterfall',
+      description: 'Spectacular seven-tiered waterfall on Gangtok-Lachung highway',
+      location: 'North Sikkim',
+      type: 'image'
+    },
+    {
+      id: 18,
+      src: 'https://images.unsplash.com/photo-1559666126-84f389727b9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'monasteries',
+      title: 'Tashiding Monastery',
+      description: 'Sacred monastery believed to cleanse all sins',
+      location: 'West Sikkim',
+      type: 'image'
+    },
+    {
+      id: 19,
+      src: 'https://images.unsplash.com/photo-1580133318324-f2f76d987dd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'wildlife',
+      title: 'Himalayan Black Bear',
+      description: 'Rare sighting of the elusive Himalayan black bear',
+      location: 'Khangchendzonga National Park',
+      type: 'image'
+    },
+    {
+      id: 20,
+      src: 'https://images.unsplash.com/photo-1566505670282-0d18df1e1f0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'culture',
+      title: 'Lepcha Heritage',
+      description: 'Traditional Lepcha tribal house and culture',
+      location: 'Central Sikkim',
+      type: 'image'
+    },
+    {
+      id: 21,
+      src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'landscapes',
+      title: 'Zemu Glacier',
+      description: 'Source of Teesta River, one of the largest glaciers in Himalayas',
+      location: 'North Sikkim',
+      type: 'image'
+    },
+    {
+      id: 22,
+      src: 'https://images.unsplash.com/photo-1559666126-84f389727b9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'monasteries',
+      title: 'Phodong Monastery',
+      description: 'Ancient monastery of the Kagyu sect of Tibetan Buddhism',
+      location: 'North Sikkim',
+      type: 'image'
+    },
+    {
+      id: 23,
+      src: 'https://images.unsplash.com/photo-1580133318324-f2f76d987dd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'lakes',
+      title: 'Menmecho Lake',
+      description: 'Serene high-altitude lake near Tsomgo Lake',
+      location: 'East Sikkim',
+      type: 'image'
+    },
+    {
+      id: 24,
+      src: 'https://images.unsplash.com/photo-1566505670282-0d18df1e1f0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'culture',
+      title: 'Sikkimese Cuisine',
+      description: 'Traditional momos and thukpa - local delicacies',
+      location: 'Throughout Sikkim',
+      type: 'image'
+    },
+    {
+      id: 25,
+      src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'landscapes',
+      title: 'Ravangla Buddha Park',
+      description: 'Giant Buddha statue overlooking the Himalayan ranges',
+      location: 'South Sikkim',
+      type: 'image'
+    },
+    {
+      id: 26,
+      src: 'https://images.unsplash.com/photo-1559666126-84f389727b9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'wildlife',
+      title: 'Blood Pheasant',
+      description: 'State bird of Sikkim with distinctive red plumage',
+      location: 'Alpine zones of Sikkim',
+      type: 'image'
+    },
+    {
+      id: 27,
+      src: 'https://images.unsplash.com/photo-1580133318324-f2f76d987dd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      category: 'culture',
+      title: 'Handicrafts',
+      description: 'Traditional Sikkimese carpets and woolen products',
+      location: 'Government Handicrafts Center',
+      type: 'image'
     }
   ];
 
+  const [images, setImages] = useState(initialImages);
+
   const filteredImages = activeCategory === 'all' 
-    ? images 
+    ? [...images, ...uploadedMedia]
+    : activeCategory === 'user-uploads'
+    ? uploadedMedia
     : images.filter(image => image.category === activeCategory);
 
   const openLightbox = useCallback((index) => {
@@ -149,6 +307,119 @@ const Gallery = () => {
     }
   }, [lightboxOpen, goToPrevious, goToNext]);
 
+  // Upload functionality
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileSelect = async (event) => {
+    const files = Array.from(event.target.files);
+    if (files.length === 0) return;
+
+    setIsUploading(true);
+    setUploadProgress(0);
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      await simulateUpload(file, i);
+    }
+
+    setIsUploading(false);
+    setUploadProgress(0);
+    setUploadModalOpen(false);
+    event.target.value = ''; // Reset file input
+  };
+
+  const simulateUpload = (file, index) => {
+    return new Promise((resolve) => {
+      const isVideo = file.type.startsWith('video/');
+      const isImage = file.type.startsWith('image/');
+      
+      if (!isImage && !isVideo) {
+        alert('Please upload only images or videos');
+        resolve();
+        return;
+      }
+
+      const reader = new FileReader();
+      
+      reader.onloadstart = () => {
+        setUploadProgress(10);
+      };
+
+      reader.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const progress = (event.loaded / event.total) * 100;
+          setUploadProgress(progress);
+        }
+      };
+
+      reader.onloadend = () => {
+        const newMedia = {
+          id: `user-${Date.now()}-${index}`,
+          src: reader.result,
+          category: 'user-uploads',
+          title: file.name.split('.')[0],
+          description: `Uploaded by user - ${file.type}`,
+          location: 'User Upload',
+          type: isVideo ? 'video' : 'image',
+          file: file,
+          uploadDate: new Date().toLocaleDateString()
+        };
+
+        setUploadedMedia(prev => [...prev, newMedia]);
+        setUploadProgress(100);
+        setTimeout(() => resolve(), 500);
+      };
+
+      if (isImage) {
+        reader.readAsDataURL(file);
+      } else {
+        // For videos, create object URL
+        const videoUrl = URL.createObjectURL(file);
+        const newMedia = {
+          id: `user-${Date.now()}-${index}`,
+          src: videoUrl,
+          category: 'user-uploads',
+          title: file.name.split('.')[0],
+          description: `Uploaded by user - ${file.type}`,
+          location: 'User Upload',
+          type: 'video',
+          file: file,
+          uploadDate: new Date().toLocaleDateString()
+        };
+        setUploadedMedia(prev => [...prev, newMedia]);
+        setUploadProgress(100);
+        resolve();
+      }
+    });
+  };
+
+  // Download functionality
+  const downloadMedia = (media) => {
+    if (media.type === 'image') {
+      const link = document.createElement('a');
+      link.href = media.src;
+      link.download = `${media.title}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      // For videos
+      const link = document.createElement('a');
+      link.href = media.src;
+      link.download = `${media.title}.mp4`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  // Delete uploaded media
+  const deleteUploadedMedia = (mediaId) => {
+    setUploadedMedia(prev => prev.filter(media => media.id !== mediaId));
+  };
+
   React.useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -162,6 +433,12 @@ const Gallery = () => {
         <div className="hero-content">
           <h1>Sikkim Through the Lens</h1>
           <p>Discover the breathtaking beauty of the Himalayan paradise</p>
+          <button 
+            className="upload-hero-btn"
+            onClick={() => setUploadModalOpen(true)}
+          >
+            📸 Share Your Photos & Videos
+          </button>
         </div>
       </div>
 
@@ -179,21 +456,69 @@ const Gallery = () => {
               </button>
             ))}
           </div>
+          
+          <div className="action-buttons">
+            <button 
+              className="upload-btn"
+              onClick={() => setUploadModalOpen(true)}
+            >
+              📤 Upload Media
+            </button>
+            <button 
+              className="download-all-btn"
+              onClick={() => alert('Download all feature coming soon!')}
+            >
+              ⬇️ Download All
+            </button>
+          </div>
         </div>
 
         <div className="masonry-grid">
-          {filteredImages.map((image, index) => (
+          {filteredImages.map((media, index) => (
             <div 
-              key={image.id} 
-              className="gallery-item"
+              key={media.id} 
+              className={`gallery-item ${media.type === 'video' ? 'video-item' : ''}`}
               onClick={() => openLightbox(index)}
             >
               <div className="image-container">
-                <img src={image.src} alt={image.title} />
+                {media.type === 'video' ? (
+                  <video src={media.src} muted>
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <img src={media.src} alt={media.title} />
+                )}
+                
                 <div className="image-overlay">
                   <div className="overlay-content">
-                    <h3>{image.title}</h3>
-                    <p>{image.location}</p>
+                    <h3>{media.title}</h3>
+                    <p>{media.location}</p>
+                    {media.type === 'video' && <span className="video-badge">🎥 VIDEO</span>}
+                  </div>
+                  
+                  <div className="media-actions">
+                    <button 
+                      className="download-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        downloadMedia(media);
+                      }}
+                      title="Download"
+                    >
+                      ⬇️
+                    </button>
+                    {media.category === 'user-uploads' && (
+                      <button 
+                        className="delete-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteUploadedMedia(media.id);
+                        }}
+                        title="Delete"
+                      >
+                        🗑️
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -202,6 +527,83 @@ const Gallery = () => {
         </div>
       </div>
 
+      {/* Upload Modal */}
+      {uploadModalOpen && (
+        <div className="modal-overlay" onClick={() => setUploadModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="modal-close"
+              onClick={() => setUploadModalOpen(false)}
+            >
+              ×
+            </button>
+            
+            <h2>Upload Photos & Videos</h2>
+            <div className="upload-zone">
+              <div className="upload-instructions">
+                <p>📸 Select photos or videos to share</p>
+                <ul>
+                  <li>Supported formats: JPG, PNG, MP4, MOV</li>
+                  <li>Max file size: 50MB</li>
+                  <li>You can select multiple files</li>
+                </ul>
+              </div>
+              
+              <button 
+                className="upload-zone-btn"
+                onClick={handleUploadClick}
+                disabled={isUploading}
+              >
+                {isUploading ? 'Uploading...' : 'Choose Files'}
+              </button>
+              
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileSelect}
+                multiple
+                accept="image/*,video/*"
+                style={{ display: 'none' }}
+              />
+              
+              {isUploading && (
+                <div className="upload-progress">
+                  <div 
+                    className="progress-bar"
+                    style={{ width: `${uploadProgress}%` }}
+                  ></div>
+                  <span>{Math.round(uploadProgress)}%</span>
+                </div>
+              )}
+            </div>
+            
+            {uploadedMedia.length > 0 && (
+              <div className="upload-preview">
+                <h3>Your Uploads ({uploadedMedia.length})</h3>
+                <div className="preview-grid">
+                  {uploadedMedia.map(media => (
+                    <div key={media.id} className="preview-item">
+                      {media.type === 'video' ? (
+                        <video src={media.src} muted />
+                      ) : (
+                        <img src={media.src} alt={media.title} />
+                      )}
+                      <button 
+                        className="preview-delete"
+                        onClick={() => deleteUploadedMedia(media.id)}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Lightbox */}
       {lightboxOpen && (
         <div className="lightbox-overlay" onClick={closeLightbox}>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
@@ -209,18 +611,36 @@ const Gallery = () => {
             <button className="lightbox-nav lightbox-prev" onClick={goToPrevious}>‹</button>
             
             <div className="lightbox-image-container">
-              <img 
-                src={filteredImages[currentImage].src} 
-                alt={filteredImages[currentImage].title} 
-              />
+              {filteredImages[currentImage].type === 'video' ? (
+                <video src={filteredImages[currentImage].src} controls autoPlay>
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <img 
+                  src={filteredImages[currentImage].src} 
+                  alt={filteredImages[currentImage].title} 
+                />
+              )}
+              
               <div className="lightbox-info">
-                <h3>{filteredImages[currentImage].title}</h3>
+                <div className="lightbox-header">
+                  <h3>{filteredImages[currentImage].title}</h3>
+                  <button 
+                    className="lightbox-download"
+                    onClick={() => downloadMedia(filteredImages[currentImage])}
+                  >
+                    ⬇️ Download
+                  </button>
+                </div>
                 <p>{filteredImages[currentImage].description}</p>
                 <div className="image-meta">
                   <span className="location">📍 {filteredImages[currentImage].location}</span>
                   <span className="category">
                     {categories.find(cat => cat.id === filteredImages[currentImage].category)?.name}
                   </span>
+                  {filteredImages[currentImage].uploadDate && (
+                    <span className="upload-date">📅 {filteredImages[currentImage].uploadDate}</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -229,13 +649,17 @@ const Gallery = () => {
             
             <div className="lightbox-thumbnails">
               {filteredImages.map((image, index) => (
-                <img
-                  key={image.id}
-                  src={image.src}
-                  alt={image.title}
-                  className={index === currentImage ? 'active' : ''}
+                <div 
+                  key={image.id} 
+                  className={`thumbnail ${index === currentImage ? 'active' : ''}`}
                   onClick={() => setCurrentImage(index)}
-                />
+                >
+                  {image.type === 'video' ? (
+                    <video src={image.src} muted />
+                  ) : (
+                    <img src={image.src} alt={image.title} />
+                  )}
+                </div>
               ))}
             </div>
           </div>
@@ -245,8 +669,13 @@ const Gallery = () => {
       <div className="gallery-cta">
         <div className="cta-content">
           <h2>Share Your Sikkim Experience</h2>
-          <p>Have beautiful photos of Sikkim? Share them with our community</p>
-          <button className="cta-button">Submit Your Photos</button>
+          <p>Have beautiful photos or videos of Sikkim? Share them with our community</p>
+          <button 
+            className="cta-button"
+            onClick={() => setUploadModalOpen(true)}
+          >
+            Submit Your Photos & Videos
+          </button>
         </div>
       </div>
     </div>
