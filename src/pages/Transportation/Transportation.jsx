@@ -166,7 +166,7 @@ const Transportation = () => {
                       key={route.id} 
                       className={`route-card ${selectedRoute?.id === route.id ? 'selected' : ''}`}
                       onClick={() => handleRouteSelect(route)}
-                    >
+                    > 
                       <div className="route-header">
                         <h4>{route.from} → {route.to}</h4>
                         <CostBadge cost={route.cost} />
