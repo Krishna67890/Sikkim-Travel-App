@@ -37,7 +37,7 @@ const About = () => {
               <p>Frontend Developer</p>
             </div>
             <div className="team-member">
-              <div className="member-avatar">SC</div>
+              <div className="member-avatar">SC</div> 
               <h3>Shraddha Chavan</h3>
               <p>UI/UX Designer</p>
             </div>
