@@ -277,7 +277,7 @@
   width: 60px;
   height: 60px;
   object-fit: cover;
-  border-radius: 5px; 
+  border-radius: 5px;
   cursor: pointer;
   opacity: 0.6;
   transition: all 0.3s ease;
