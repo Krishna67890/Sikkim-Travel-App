@@ -1,8 +1,8 @@
 // src/pages/Vlogs/Vlogs.jsx
 import React, { useState } from 'react';
-import VideoCard from '../../components/cards/VideoCard';
-import SearchBar from '../../components/ui/SearchBar';
-import FilterPanel from '../../components/ui/FilterPanel';
+import VideoCard from '../../components/cards/VideoCard/VideoCard';
+import SearchBar from '../../components/ui/SearchBar/SearchBar';
+import FilterPanel from '../../components/ui/FilterPanel/FilterPanel';
 import './Vlogs.css';
 
 const Vlogs = () => {
