@@ -11,6 +11,7 @@ const Navbar = () => {
     { path: '/destinations', label: 'Destinations', icon: '🗺️' },
     { path: '/itineraries', label: 'Itineraries', icon: '📅' },
     { path: '/gallery', label: 'Gallery', icon: '🖼️' },
+    { path: '/vlogs', label: 'Vlogs', icon: '🎥' },
     { path: '/monasteries', label: 'Monasteries', icon: '🛕' },
     { path: '/transportation', label: 'Transportation', icon: '🚗' },
     { path: '/about', label: 'About', icon: 'ℹ️' },
@@ -40,7 +41,7 @@ const Navbar = () => {
           className={`navbar-toggle ${isMenuOpen ? 'active' : ''}`}
           onClick={toggleMenu}
           aria-label="Toggle menu"
-        > 
+        >
           <span className="navbar-toggle-icon"></span>
           <span className="navbar-toggle-icon"></span>
           <span className="navbar-toggle-icon"></span>
