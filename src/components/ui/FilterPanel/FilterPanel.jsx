@@ -1,7 +1,20 @@
 import React, { useState } from 'react';
 import './FilterPanel.css';
 
-const FilterPanel = ({ onFilterChange, isOpen, onClose }) => {
+const FilterPanel = ({ 
+
+  title, 
+  options, 
+  selected, 
+  onSelect, 
+  type = 'pill',
+
+  onFilterChange, 
+  isOpen, 
+  onClose,
+  mode = 'simple' 
+}) => {
+
   const [filters, setFilters] = useState({
     priceRange: [0, 10000],
     categories: [],
@@ -11,28 +24,38 @@ const FilterPanel = ({ onFilterChange, isOpen, onClose }) => {
     location: ''
   });
 
+
   const categories = [
-    'Trekking',
-    'Cultural',
-    'Wildlife',
-    'Pilgrimage',
-    'Adventure',
-    'Photography'
+    'Trekking', 'Cultural', 'Wildlife', 'Pilgrimage', 'Adventure', 'Photography'
   ];
 
   const difficultyLevels = ['Easy', 'Moderate', 'Difficult', 'Challenging'];
   const durations = ['1-3 days', '4-7 days', '8+ days'];
   const locations = [
-    'Gangtok',
-    'Pelling',
-    'Lachung',
-    'Yumthang',
-    'Tsomgo Lake',
-    'Nathula Pass',
-    'Ravangla',
-    'Zuluk'
+    'Gangtok', 'Pelling', 'Lachung', 'Yumthang', 'Tsomgo Lake', 'Nathula Pass', 'Ravangla', 'Zuluk'
   ];
 
+  // Simple mode render
+  if (mode === 'simple') {
+    return (
+      <div className="filter-panel-simple">
+        {title && <h4 className="filter-panel-simple__title">{title}</h4>}
+        <div className={`filter-panel-simple__options ${type === 'pill' ? 'filter-panel-simple__options--pill' : ''}`}>
+          {options.map(option => (
+            <button
+              key={option.id}
+              className={`filter-panel-simple__option ${selected === option.id ? 'filter-panel-simple__option--active' : ''}`}
+              onClick={() => onSelect(option.id)}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Advanced mode handlers
   const handleCategoryToggle = (category) => {
     const updatedCategories = filters.categories.includes(category)
       ? filters.categories.filter(cat => cat !== category)
@@ -68,16 +91,17 @@ const FilterPanel = ({ onFilterChange, isOpen, onClose }) => {
     onFilterChange(resetFilters);
   };
 
+  // Advanced mode render
   return (
-    <div className={`filter-panel ${isOpen ? 'filter-panel--open' : ''}`}>
-      <div className="filter-panel__header">
+    <div className={`filter-panel-advanced ${isOpen ? 'filter-panel-advanced--open' : ''}`}>
+      <div className="filter-panel-advanced__header">
         <h3>Filter Tours</h3>
-        <button className="filter-panel__close" onClick={onClose}>
+        <button className="filter-panel-advanced__close" onClick={onClose}>
           ×
         </button>
       </div>
 
-      <div className="filter-panel__content">
+      <div className="filter-panel-advanced__content">
         {/* Price Range Filter */}
         <div className="filter-section">
           <h4>Price Range (₹)</h4>
